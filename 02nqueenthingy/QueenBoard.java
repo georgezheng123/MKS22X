@@ -1,6 +1,9 @@
 public class QueenBoard{
 
     private int[][] board;
+    public static final String CLEAR_SCREEN =  "\033[2J";
+    public static final String HIDE_CURSOR =  "\033[?25l";
+    public static final String SHOW_CURSOR =  "\033[?25h";
 
     public QueenBoard(int size){
         board = new int[size][size];
@@ -36,6 +39,9 @@ public class QueenBoard{
     }
 
     public String toString(){
+    //     System.out.println(CLEAR_SCREEN);
+    // System.out.println(HIDE_CURSOR);
+    // wait(200000);
         String ans = "";
         for (int i=0; i<board.length; i++){
             for (int j=0; j<board[0].length; j++){
@@ -45,6 +51,14 @@ public class QueenBoard{
         }       
 
         return ans;
+    }
+
+    public static void wait(int millis){
+        try {
+            Thread.sleep(millis);
+        }
+        catch (InterruptedException e) {
+        }
     }
 
     public boolean solve(){
@@ -86,6 +100,7 @@ public class QueenBoard{
     }
 
     public int countSolutions(int col){
+        // System.out.println(toString());
         int counter=0;
         if (col >= board[0].length) return 1;
         for (int i=0; i<board.length; i++){
@@ -97,5 +112,9 @@ public class QueenBoard{
         }
         return counter;
     }
+
+public static void main(String[] args){
+    new QueenBoard(4).countSolutions();
+}
 
 }
