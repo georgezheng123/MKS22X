@@ -3,6 +3,8 @@ import java.util.*;
 
 public class USACO {
 
+
+
 	public static int bronze(String filename) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filename));
 		
@@ -57,8 +59,65 @@ public class USACO {
 		
 	}
 
+	public static int silver(String filename) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader(filename));
+		
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int h = Integer.parseInt(st.nextToken());
+		int w = Integer.parseInt(st.nextToken());
+		int t = Integer.parseInt(st.nextToken());
+		
+		char[][] board = new char[260][260];
+		int[][][] moves = new int[260][260][33];
+
+		for (int i=0; i<h; i++){
+			String sr = br.readLine();
+			for (int j=0; j<w; j++){
+				board[i][j] = sr.charAt(j);
+			}
+		}
+
+		final int[] dy = new int[] {0,0,+1,-1};  
+		final int[] dx = new int[] {+1,-1,0,0};
+
+		st = new StringTokenizer(br.readLine());
+		int r1 = Integer.parseInt(st.nextToken())-1;
+		int c1 = Integer.parseInt(st.nextToken())-1;
+		int r2 = Integer.parseInt(st.nextToken())-1;
+		int c2 = Integer.parseInt(st.nextToken())-1;
+
+		moves[r1][c1][0] = 1;
+
+		for(int i = 1; i <= t; ++i){
+			for(int y = 0; y < h; ++y){
+				for(int x = 0; x < w; ++x){
+
+					moves[y][x][i] = 0;
+					if(board[y][x] == '*') continue;
+
+					int k=0;
+					while(k<4){
+						moves[y][x][i] += getValue(moves, board, x + dx[k],y + dy[k],w,h,y,x,i);
+						k++;
+					}
+				}
+			}
+		}
+		return moves[r2][c2][t];
+	}
+
+	public static int getValue(int[][][] dp, char[][] grid, int x2, int y2, int w, int h, int y, int x, int i){
+		if(!(0 <= x2 && x2 < w && 0 <= y2 && y2 < h)) return 0;
+
+		if(grid[y2][x2] == '*'){
+			return 0;
+		}
+	
+		return dp[y2][x2][i-1];
+	}
+
 	public static void main(String[] args) throws IOException{ 
-		int heh = bronze("bronze1.dat");
+		int heh = silver("silver1.dat");
 		System.out.println(heh);
 				// for(int[] i: arr){
 		// 	System.out.println(Arrays.toString(i));
