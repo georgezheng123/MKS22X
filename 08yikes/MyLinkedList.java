@@ -38,6 +38,9 @@ public class MyLinkedList{
             start.setPrev(newHead);
         }
         start = newHead;
+        if (size == 0){
+            end = start;
+        }
         size++;
         return true;
     }
@@ -134,6 +137,7 @@ public class MyLinkedList{
 
     public void removeStart(int index){
         start = start.next;
+        start.setPrev(null);
     }
 
     public void removeMid(int index){
@@ -146,6 +150,7 @@ public class MyLinkedList{
 
     public void removeEnd(int index){
         end = end.prev;
+        end.setNext(null);
     }
 
     public Boolean remove(Integer value){

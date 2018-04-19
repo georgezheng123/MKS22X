@@ -3,7 +3,7 @@
 
 
     public static void main(String[]args){
-      MyLinkedList nums = new MyLinkedList();
+      MyLinkedListImproved<Integer> nums = new MyLinkedListImproved<Integer>();
       LinkedList<Integer> nums2 = new LinkedList<>();
       
       for(int i = 0; i < 2000; i++  ){
