@@ -21,6 +21,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
             loop = loop.next;
             counter++;
         }
+        System.out.println("isempty");
     }
 
     public void clear(){
@@ -57,6 +58,10 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     }
 
     public boolean addEnd(T value){
+        // debug();
+        if (size == 0){
+            return add(value);
+        }
         Node<T> target = (size == 1) ? start : end;
         Node<T> newTail = new Node<T>(value, target, null); 
         target.setNext(newTail);
@@ -191,6 +196,10 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
         return maxIndex;
     }
 
+    public T maxValue(){
+        return get(max());
+    }
+
     public int min(){
         if (size == 0) return -1;
         Node<T> current = start;
@@ -291,17 +300,16 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 
 
     public static void main(String[] args){
-MyLinkedListImproved<Integer> l = new MyLinkedListImproved<>();
+    MyLinkedListImproved<Integer> l = new MyLinkedListImproved<>();
     MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
 
 
     m.add(Integer.valueOf(3));
-    l.add(Integer.valueOf(4));
     l.add(Integer.valueOf(9));
     l.add(Integer.valueOf(912));
     System.out.println(l);
     System.out.println(m);
-    m.extend(l);
+    l.extend(m);
     System.out.println(l + " is size " + l.size());
     System.out.println(m + " is size " + m.size());
 
