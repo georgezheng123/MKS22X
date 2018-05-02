@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Sorts{
 
-    public static void radixsort(MyLinkedListImproved<Integer> data) {
+    public static void radixsortH(MyLinkedListImproved<Integer> data) {
         if (data.size() < 2) return;
         // System.out.println("unsorted:" + data);
         int numbItera = ("" + data.maxValue()).length();
@@ -26,15 +26,29 @@ public class Sorts{
 
     public static int nDigit(int numb, int n){
         int div = (int) Math.pow(10, n);
+        // System.out.println("digit: " + n + "of number: " + numb);
         return numb % (div*10) / div; 
     }
 
-    public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer> data){ 
-        MyLinkedListImproved<Integer> negatives = removeNegatives(data);
-        for (Integer i: negatives){
-            data.add(i*-1);
+    public static void radixsort(MyLinkedListImproved<Integer> data){ 
+        for (Integer j: data){
+            if (j < 0){
+                MyLinkedListImproved<Integer> negatives = removeNegatives(data);
+                for (Integer i: negatives){
+                    data.add(i*-1);
+                }
+                return;
+            }
         }
-        System.out.println(data);
+        radixsortH(data);
+
+
+        
+        // System.out.println(data);
+    }
+
+    public static void radixsortIncludingNegatives(MyLinkedListImproved<Integer> data){ 
+        radixsort(data);
     }
 
     public static MyLinkedListImproved<Integer> removeNegatives(MyLinkedListImproved<Integer> data){
@@ -45,32 +59,13 @@ public class Sorts{
                 data.remove(i);
             }
         }
-        radixsort(negatives);
-        radixsort(data);
+        radixsortH(negatives);
+        radixsortH(data);
         return negatives;
     }
 
 
 
-    public static void main(String[] args) {
-    MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
-
-
-    m.add(-5);
-    m.add(0);
-    m.add(55);
-    m.add(-55);
-    m.add(21);
-     m.add(46);
-    m.add(46);
-    m.add(56456);
- m.add(-13);
-     m.add(-111);
-
-    System.out.println(m);
-    radixsortIncludingNegatives(m);
-    // System.out.println(m);
-    }
 
 
 }

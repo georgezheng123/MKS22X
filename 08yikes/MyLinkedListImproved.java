@@ -143,7 +143,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 
     public void removeStart(int index){
         start = start.next;
-        start.setPrev(null);
+        if (start != null) start.setPrev(null);
     }
 
     public void removeMid(int index){
