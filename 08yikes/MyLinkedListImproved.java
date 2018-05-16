@@ -30,7 +30,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
         end = null;
     }
 
-    public boolean add(T value){
+    public boolean addBeg(T value){
         Node<T> newHead = new Node<T>(value, null, this.start);
         if (size == 1){
             start.setNext(null);
@@ -60,7 +60,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     public boolean addEnd(T value){
         // debug();
         if (size == 0){
-            return add(value);
+            return addBeg(value);
         }
         Node<T> target = (size == 1) ? start : end;
         Node<T> newTail = new Node<T>(value, target, null); 
@@ -119,12 +119,16 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
     public void add(int index, T value){
         withinBoundsInc(index);
         if (index == 0){
-            add(value);
+            addBeg(value);
         }else if(index == size){
             addEnd(value);
         }else{
             addMid(index, value);
         }
+    }
+
+    public void add(T value){
+        addEnd(value);
     }
 
     public T remove(int index){
@@ -301,17 +305,11 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 
     public static void main(String[] args){
     MyLinkedListImproved<Integer> l = new MyLinkedListImproved<>();
-    MyLinkedListImproved<Integer> m = new MyLinkedListImproved<>();
-
-
-    m.add(Integer.valueOf(3));
-    l.add(Integer.valueOf(9));
-    l.add(Integer.valueOf(912));
+    
+    for (int i=0; i<99; i++){
+        l.add(i);
+    }
     System.out.println(l);
-    System.out.println(m);
-    l.extend(m);
-    System.out.println(l + " is size " + l.size());
-    System.out.println(m + " is size " + m.size());
 
         
  

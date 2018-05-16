@@ -10,7 +10,7 @@ public class RunningMedian{
 	}
 
 	public void add(Double toAdd){
-		
+		balance();
 	}
 
 	public Double getMedian(){
