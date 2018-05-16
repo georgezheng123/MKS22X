@@ -30,16 +30,27 @@ public class MyHeap<T extends Comparable<T>>{
 		arr.add(toAdd);
 		int newIndex = size++;
 		if (size == 2) return;
-		System.out.println(this + " is size " + size);
 		int parentIndex = newIndex/2; 
-		System.out.println(newIndex + " " + parentIndex);
-		System.out.println((arr.get(parentIndex).compareTo(arr.get(newIndex)) < 0));
 		while (isMaxHeap ?  (arr.get(parentIndex).compareTo(arr.get(newIndex)) < 0) : (arr.get(parentIndex).compareTo(arr.get(newIndex)) > 0)){
 			swap(newIndex, parentIndex);
 			newIndex = parentIndex;
 			parentIndex = newIndex/2;
 			if (parentIndex == 0) return;
 		}
+	}
+
+	public T remove(){
+		if (size < 3) {
+			size = 1;
+			arr = new ArrayList<T>();
+			arr.add(null);
+			return null;
+		}
+		T removed = arr.remove(size-1);
+		arr.set(1, removed);
+		size--;
+		heapify(1);
+		return removed;
 	}
 
 	public void heapify(int n){
@@ -63,17 +74,12 @@ public class MyHeap<T extends Comparable<T>>{
 		}else{//two children
 			int chosenIndex;
 			if (isMaxHeap){
-				// System.out.println("here");
 				chosenIndex = (arr.get(leftChildIndex).compareTo(arr.get(rightChildIndex)) < 0) ? (rightChildIndex) : (leftChildIndex);
 				if (parent.compareTo(arr.get(chosenIndex)) < 0){
-					// System.out.println(parent + " " + arr.get(chosenIndex));
 					heapify(n, chosenIndex);
-					// System.out.println("heep now looks like: " + this);
 				}
 			}else{
-				System.out.println("now heapifying index :" + n);
 				chosenIndex = (arr.get(leftChildIndex).compareTo(arr.get(rightChildIndex)) < 0) ? (leftChildIndex) : (rightChildIndex);
-				System.out.println(arr.get(chosenIndex));
 				if (parent.compareTo(arr.get(chosenIndex)) > 0){
 					heapify(n, chosenIndex);
 				}
@@ -91,22 +97,21 @@ public class MyHeap<T extends Comparable<T>>{
 		return arr.get(1);
 	}
 
+	public void resize(){
+
+	}
+
 	public void swap(int indexOne, int indexTwo){
 		Collections.swap(arr, indexOne, indexTwo);
 	}
 
 	
 	public static void main(String[] args) {
-		MyHeap<Integer> h = new MyHeap<Integer>();
+		MyHeap<Integer> h = new MyHeap<Integer>(false);
 		int[] donut = new int[] {9, 63, 71, 43, 4, 16, 101, 69};
     	for (int i: donut){
     		h.add(i);
     	}
-    	// System.out.println(h);
-    	// for (int i=4; i>0; i--){
-    	// 	h.heapify(i);
-    	// }
-    	System.out.println(h);
 	}
 
 
