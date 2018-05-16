@@ -35,7 +35,7 @@ public class Sorts{
             if (j < 0){
                 MyLinkedListImproved<Integer> negatives = removeNegatives(data);
                 for (Integer i: negatives){
-                    data.add(i*-1);
+                    data.addBeg(i*-1);
                 }
                 return;
             }
@@ -55,7 +55,7 @@ public class Sorts{
         MyLinkedListImproved<Integer> negatives = new MyLinkedListImproved<Integer>();
         for (Integer i: data){
             if (i < 0){
-                negatives.add(i*-1);
+                negatives.addBeg(i*-1);
                 data.remove(i);
             }
         }
@@ -64,6 +64,15 @@ public class Sorts{
         return negatives;
     }
 
+    public static void main(String[] args) {
+        int[] blah = new int[] {4, -4, 21, 0, -22, 12, -11, 0, 4, 5, -99};
+        MyLinkedListImproved<Integer> donut = new MyLinkedListImproved<Integer>();
+        for (int i: blah){
+            donut.add(i);
+        }
+        radixsort(donut);
+        System.out.println(donut);
+    }
 
 
 
