@@ -13,7 +13,7 @@ public class MyHeap<T extends Comparable<T>>{
 	@SuppressWarnings("unchecked")
 	public MyHeap(boolean max){
 		isMaxHeap = max;
-		size = 0;
+		size = 1;
 		arr = new ArrayList<T>();
 		arr.add(null);
 	}
@@ -27,25 +27,24 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 
 	public void add(T toAdd){
-		if (isMaxHeap){
-			addMaxHeap(toAdd);
-		}else{
-			addMinHeap(toAdd);
+		arr.add(toAdd);
+		int newIndex = size++;
+		if (size == 2) return;
+		System.out.println(this + " is size " + size);
+		int parentIndex = newIndex/2; 
+		System.out.println(newIndex + " " + parentIndex);
+		System.out.println((arr.get(parentIndex).compareTo(arr.get(newIndex)) < 0));
+		while (isMaxHeap ?  (arr.get(parentIndex).compareTo(arr.get(newIndex)) < 0) : (arr.get(parentIndex).compareTo(arr.get(newIndex)) > 0)){
+			swap(newIndex, parentIndex);
+			newIndex = parentIndex;
+			parentIndex = newIndex/2;
+			if (parentIndex == 0) return;
 		}
-		size++;
-	}
-
-	public void addMaxHeap(T toAdd){
-		
-	}
-
-	public void addMinHeap(T toAdd){
-		
 	}
 
 	public void heapify(int n){
-		int leftChildIndex = 2*n+1;
-		int rightChildIndex = 2*n+2; 
+		int leftChildIndex = 2*n;
+		int rightChildIndex = 2*n+1; 
 		if (leftChildIndex >= size) return;//no child
 		T parent = arr.get(n);
 		T child = arr.get(leftChildIndex);
@@ -64,28 +63,32 @@ public class MyHeap<T extends Comparable<T>>{
 		}else{//two children
 			int chosenIndex;
 			if (isMaxHeap){
+				// System.out.println("here");
 				chosenIndex = (arr.get(leftChildIndex).compareTo(arr.get(rightChildIndex)) < 0) ? (rightChildIndex) : (leftChildIndex);
 				if (parent.compareTo(arr.get(chosenIndex)) < 0){
+					// System.out.println(parent + " " + arr.get(chosenIndex));
 					heapify(n, chosenIndex);
+					// System.out.println("heep now looks like: " + this);
 				}
 			}else{
-				chosenIndex = (arr.get(leftChildIndex).compareTo(arr.get(leftChildIndex)) < 0) ? (leftChildIndex) : (rightChildIndex);
+				System.out.println("now heapifying index :" + n);
+				chosenIndex = (arr.get(leftChildIndex).compareTo(arr.get(rightChildIndex)) < 0) ? (leftChildIndex) : (rightChildIndex);
+				System.out.println(arr.get(chosenIndex));
 				if (parent.compareTo(arr.get(chosenIndex)) > 0){
 					heapify(n, chosenIndex);
 				}
 			}
 		}
-		
 	}
 
-	public void heapify(int n, int leftChildIndex){
-		swap(n, leftChildIndex);
-		heapify(leftChildIndex);
+	public void heapify(int n, int otherIndex){
+		swap(n, otherIndex);
+		heapify(otherIndex);
 	}
 
 
 	public T peek(){
-		return arr.get(0);
+		return arr.get(1);
 	}
 
 	public void swap(int indexOne, int indexTwo){
@@ -95,10 +98,15 @@ public class MyHeap<T extends Comparable<T>>{
 	
 	public static void main(String[] args) {
 		MyHeap<Integer> h = new MyHeap<Integer>();
-		System.out.println(h);
-    	for (int i=0; i<10; i++){
+		int[] donut = new int[] {9, 63, 71, 43, 4, 16, 101, 69};
+    	for (int i: donut){
     		h.add(i);
     	}
+    	// System.out.println(h);
+    	// for (int i=4; i>0; i--){
+    	// 	h.heapify(i);
+    	// }
+    	System.out.println(h);
 	}
 
 
