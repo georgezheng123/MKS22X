@@ -46,8 +46,8 @@ public class MyHeap<T extends Comparable<T>>{
 			arr.add(null);
 			return null;
 		}
-		T removed = arr.remove(size-1);
-		arr.set(1, removed);
+		T removed = arr.get(1);
+		arr.set(1, arr.remove(size-1));
 		size--;
 		heapify(1);
 		return removed;
