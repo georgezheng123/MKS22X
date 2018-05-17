@@ -4,11 +4,9 @@ import java.util.stream.Collectors;
 public class Sorts {
 
 	public static void heapsort(int[] arr){
-		List<Integer> list = Arrays.stream(arr).boxed().collect(Collectors.toList());
-		MyHeap<Integer> sorter = new MyHeap<Integer>(list);
-		List<Integer> listOfSorted = sorter.sorty();
+		List<Integer> listOfSorted = new MyHeap<Integer>(Arrays.stream(arr).boxed().collect(Collectors.toList())).sorty();
 		Collections.reverse(listOfSorted);
-		Integer[] sortedArr = listOfSorted.toArray(new Integer[list.size()]);
+		Integer[] sortedArr = listOfSorted.toArray(new Integer[arr.length]);
 		for (int i=0; i<arr.length; i++){
 			arr[i] = (int) sortedArr[i];
 		}
@@ -34,7 +32,7 @@ private static int create(int min, int max){
   return min + (int)(Math.random()*(max-min));
 }
 
-private static int[]makeArray(int size,int type){
+private static int[] makeArray(int size,int type){
   int[]ans =new int[size];
   if(type == STANDARD){
     for(int i = 0; i < size; i++){
