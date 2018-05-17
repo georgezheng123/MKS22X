@@ -18,6 +18,31 @@ public class MyHeap<T extends Comparable<T>>{
 		arr.add(null);
 	}
 
+	@SuppressWarnings("unchecked")
+	public MyHeap(List<T> data){
+		isMaxHeap = true;
+		size = 1;
+		arr = new ArrayList<T>();
+		arr.add(null);
+		size += data.size();
+		arr.addAll(data);
+		for (int i=size/2; i>0; i--){
+			heapify(i);
+		}
+	}
+
+	public ArrayList<T> sorty(){
+		ArrayList<T> sortedStuff = new ArrayList<T>();
+		while (size != 1){
+			sortedStuff.add(arr.get(1));
+			if (arr.size() == 2) return sortedStuff;
+			arr.set(1, arr.remove(size-1));
+			size--;
+			heapify(1);
+		}
+		return sortedStuff;
+	}
+
 	public String toString(){
 		return arr.toString();
 	}
@@ -46,8 +71,8 @@ public class MyHeap<T extends Comparable<T>>{
 			arr.add(null);
 			return null;
 		}
-		T removed = arr.remove(size-1);
-		arr.set(1, removed);
+		T removed = arr.get(1);
+		arr.set(1, arr.remove(size-1));
 		size--;
 		heapify(1);
 		return removed;
@@ -113,6 +138,5 @@ public class MyHeap<T extends Comparable<T>>{
     		h.add(i);
     	}
 	}
-
 
 }
