@@ -48,7 +48,7 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 
 	public int size(){
-		return size;
+		return size-1;
 	}
 
 	public void add(T toAdd){
@@ -131,12 +131,25 @@ public class MyHeap<T extends Comparable<T>>{
 	}
 
 	
-	public static void main(String[] args) {
-		MyHeap<Integer> h = new MyHeap<Integer>(false);
-		int[] donut = new int[] {9, 63, 71, 43, 4, 16, 101, 69};
-    	for (int i: donut){
-    		h.add(i);
-    	}
-	}
+	  public static void main(String[]args){
+    MyHeap<Integer> h = new MyHeap<Integer>(false);
+    //[44,44,44,46,44,46,44,46,46,46,46]
+    h.add(44);
+    h.add(44);
+    h.add(44);
+    h.add(46);
+    h.add(44);
+    h.add(46);
+    h.add(44);
+    h.add(46);
+    h.add(46);
+    h.add(46);
+    h.add(46);
+    h.remove();
+    for (int i=0; i<122; i++){
+    	System.out.println(h.remove());
+    	System.out.println(h.size());
+    }
+  }
 
 }
